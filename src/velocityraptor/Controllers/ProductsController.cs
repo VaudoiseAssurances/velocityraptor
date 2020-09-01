@@ -13,16 +13,18 @@ namespace velocityraptor.Controllers
         {
             this.persistenceService = persistenceService;
         }
+
         // GET
-        public IActionResult Index()
+        public Project Index(Guid id)
         {
-            throw new NotImplementedException();
+            return this.persistenceService.GetProject(id);
         }
 
         public IActionResult Create(Project project)
         {
+            project.Id = new Guid();
             this.persistenceService.AddProject(project);
-            throw new NotImplementedException();
+            return CreatedAtAction("Index", project.Id);
         }
     }
 }
