@@ -8,7 +8,7 @@ import { Product } from '../services/velocityraptor-api.service';
   templateUrl: './home.component.html',
 })
 export class HomeComponent implements OnInit {
-  public products: Product;
+  public products: Product[];
 
   constructor (private client: VelocityraptorApiService) {
 

@@ -10,9 +10,9 @@
   
     <div>
       <label for="capacity">
-        Address
+        capacity
       </label>
-      <input id="capacity" type="number" formControlName="address">
+      <input id="capacity" type="number" formControlName="capacity">
     </div>
     
     <div>
@@ -20,14 +20,14 @@
         <div formArrayName="developerAvailabilities" *ngFor="let item of newSprintForm.get('developerAvailabilities').controls; let i = index;">
             <div [formGroupName]="i">
                 <div>
-                    <label for="capacity">
-                    Address
+                    <label for="availability">
+                        availability
                     </label>
-                    <input id="capacity" type="number" formControlName="address">
+                    <input id="availability" type="number" formControlName="availability">
                 </div>
             </div>
         </div>
-        <button class="button" type="submit">Add Developer</button>
+        <button class="button" type="button" (click)="addDeveloper()">Add Developer</button>
 
     </div>
 

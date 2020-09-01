@@ -1,6 +1,6 @@
 import { VelocityraptorApiService } from './../services/velocityraptor-api.service';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, FormArray } from '@angular/forms';
 
 @Component({
   selector: 'app-add-sprint',
@@ -11,8 +11,9 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 export class AddSprintComponent implements OnInit {
 
   private newSprintForm: FormGroup;
+  developerAvailabilities: FormArray;
 
-  private addDeveloperAvailability(): FormGroup {
+  private createDeveloperAvailability(): FormGroup {
     return this.formBuilder.group({
       name: '',
       availability: '',
@@ -26,12 +27,17 @@ export class AddSprintComponent implements OnInit {
     this.newSprintForm = this.formBuilder.group({
       name: '',
       capacity: '',
-      developerAvailabilities: this.formBuilder.array([this.addDeveloperAvailability()])
+      developerAvailabilities: this.formBuilder.array([this.createDeveloperAvailability()])
     });
   }
 
   ngOnInit() {
 
+  }
+
+  addDeveloper() {
+    this.developerAvailabilities = this.newSprintForm.get('developerAvailabilities') as FormArray;
+    this.developerAvailabilities.push(this.createDeveloperAvailability());
   }
 
   onSubmit(sprint) {
