@@ -30,7 +30,7 @@ export class AddSprintComponent implements OnInit {
   ) {
     this.newSprintForm = this.formBuilder.group({
       name: '',
-      capacity: '',
+      duration: '',
       developerAvailabilities: this.formBuilder.array([this.createDeveloperAvailability()])
     });
   }

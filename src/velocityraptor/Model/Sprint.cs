@@ -10,5 +10,7 @@ namespace velocityraptor.Model
 
         public int? AchievedPoints { get; set; }
         public float Capacity { get; set; }
+
+        public float Duration { get; set; }
     }
 }

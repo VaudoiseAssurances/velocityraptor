@@ -8,6 +8,9 @@ import { Observable } from 'rxjs';
  */
 @Injectable()
 export class VelocityraptorApiService {
+  setAccomplishedPoints(productId: string, sprintId: string, accomplishedPoints: number): Observable<any> {
+    return this.client.post<Sprint>('/api/products/' + productId + '/sprints/' + sprintId + '/achieved-points', accomplishedPoints);
+  }
   GetAllProducts(): Observable<Product[]> {
     return this.client.get<Product[]>('/api/products');
   }

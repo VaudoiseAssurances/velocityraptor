@@ -14,6 +14,7 @@ export class SprintComponent implements OnInit {
   public sprint: Sprint = {
   } as Sprint;
   accomplishedPoints: number;
+  productId: string;
 
   constructor(private route: ActivatedRoute, private service: VelocityraptorApiService) { }
 
@@ -21,15 +22,19 @@ export class SprintComponent implements OnInit {
     this.route.paramMap
     .pipe(
       mergeMap(params => {
-        const sprintId = params.get('sprintId');
-        const productId = params.get('productId');
-        return this.service.getSprint(productId, sprintId); // http request
+        this.sprintId = params.get('sprintId');
+        this.productId = params.get('productId');
+        return this.service.getSprint(this.productId, this.sprintId); // http request
       })
     )
-    .subscribe(o => console.log(o));
+    .subscribe(s => {
+      this.accomplishedPoints = s.achievedPoints;
+      this.sprint = s;
+    });
   }
 
   public updateAccomplishedPoints(accomplishedPoints: number) {
-    console.log(accomplishedPoints);
+    this.service.setAccomplishedPoints(this.productId, this.sprintId, accomplishedPoints)
+      .subscribe(o => console.log('done'));
   }
 }
