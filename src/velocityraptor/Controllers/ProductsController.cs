@@ -1,10 +1,12 @@
 ﻿using System;
+using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using velocityraptor.Model;
 using velocityraptor.Services;
 
 namespace velocityraptor.Controllers
 {
+    [Route("products")]
     public class ProductsController : ControllerBase
     {
         private readonly IPersistenceService persistenceService;
@@ -15,16 +17,48 @@ namespace velocityraptor.Controllers
         }
 
         // GET
-        public Project Index(Guid id)
+        [Route("{productId}")]
+        public IActionResult Index(Guid productId)
         {
-            return this.persistenceService.GetProject(id);
+            if (productId == Guid.Empty)
+            {
+                return NotFound();
+            }
+
+            return Ok(this.persistenceService.GetProduct(productId));
         }
 
-        public IActionResult Create(Project project)
+        [HttpPost]
+        public IActionResult Create(Product product)
         {
-            project.Id = new Guid();
-            this.persistenceService.AddProject(project);
-            return CreatedAtAction("Index", project.Id);
+            product.Id = new Guid();
+            this.persistenceService.AddProduct(product);
+            return CreatedAtAction("Index", product.Id);
+        }
+
+        [HttpPost]
+        [Route("{productId}/developers")]
+        public void AddDeveloper(Guid productId, Developer developer)
+        {
+            developer.Id = Guid.NewGuid();
+            var product = this.persistenceService.GetProduct(productId);
+            product.Developers.Add(developer);
+            this.persistenceService.UpdateProject(product);
+        }
+
+        [HttpPost]
+        [Route("{productId}/developers/{developerId}")]
+        public StatusCodeResult RemoveDeveloper(Guid productId, Guid developerId)
+        {
+            var product = this.persistenceService.GetProduct(productId);
+            var developerToRemove = product.Developers.SingleOrDefault(o => o.Id == developerId);
+            if (developerToRemove == null)
+            {
+                return NotFound();
+            }
+            product.Developers.Remove(developerToRemove);
+            this.persistenceService.UpdateProject(product);
+            return StatusCode(201);
         }
     }
 }
