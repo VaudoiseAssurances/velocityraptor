@@ -46,11 +46,13 @@ namespace velocityraptor.Controllers
 
 
         [Route("sprintId")]
-        public IActionResult Create(Guid sprintId, Product product)
+        public IActionResult Create(Guid productId, [FromBody]Sprint sprint)
         {
-            product.Id = Guid.NewGuid();
-            this.persistenceService.AddProduct(product);
-            return CreatedAtAction("Index", sprintId, product.Id);
+            sprint.Id = Guid.NewGuid();
+            var product = this.persistenceService.GetProduct(productId);
+            product.Sprints.Add(sprint);
+            this.persistenceService.UpdateProject(product);
+            return CreatedAtAction("Index", sprint, product.Id);
         }
     }
 }
