@@ -1,3 +1,5 @@
 <h1>SPRINT</h1>
 <h2>{{this.sprint.name}}</h2>
 Accomplished Points : 
+<input type="number" [(value)]="this.accomplishedPoints" />
+<button (click)="updateAccomplishedPoints(this.accomplishedPoints)">Update accomplished points</button>

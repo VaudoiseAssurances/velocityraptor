@@ -11,7 +11,9 @@ import { VelocityraptorApiService, Sprint } from '../services/velocityraptor-api
 
 export class SprintComponent implements OnInit {
   sprintId: string;
-  sprint: Sprint;
+  public sprint: Sprint = {
+  } as Sprint;
+  accomplishedPoints: number;
 
   constructor(private route: ActivatedRoute, private service: VelocityraptorApiService) { }
 
@@ -25,5 +27,9 @@ export class SprintComponent implements OnInit {
       })
     )
     .subscribe(o => console.log(o));
+  }
+
+  public updateAccomplishedPoints(accomplishedPoints: number) {
+    console.log(accomplishedPoints);
   }
 }
