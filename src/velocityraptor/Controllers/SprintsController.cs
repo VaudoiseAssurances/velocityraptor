@@ -6,7 +6,7 @@ using velocityraptor.Services;
 
 namespace velocityraptor.Controllers
 {
-    [Route("{productId}/sprints")]
+    [Route("api/{productId}/sprints")]
     public class SprintsController : ControllerBase
     {
         private readonly IPersistenceService persistenceService;

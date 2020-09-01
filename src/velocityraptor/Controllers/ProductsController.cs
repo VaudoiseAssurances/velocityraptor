@@ -6,7 +6,7 @@ using velocityraptor.Services;
 
 namespace velocityraptor.Controllers
 {
-    [Route("products")]
+    [Route("api/products")]
     public class ProductsController : ControllerBase
     {
         private readonly IPersistenceService persistenceService;
@@ -31,7 +31,7 @@ namespace velocityraptor.Controllers
         [HttpPost]
         public IActionResult Create(Product product)
         {
-            product.Id = new Guid();
+            product.Id = Guid.NewGuid();
             this.persistenceService.AddProduct(product);
             return CreatedAtAction("Index", product.Id);
         }
