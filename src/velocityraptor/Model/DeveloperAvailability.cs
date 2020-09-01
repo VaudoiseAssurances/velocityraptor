@@ -1,14 +1,14 @@
 ﻿namespace velocityraptor.Model
 {
-    public class SprintAvailability
+    public class DeveloperAvailability
     {
         /// <summary>
-        /// Gets or sets the developer for which the <see cref="Availability"/> is described.
+        /// Gets or sets the id of the developer for which the <see cref="Availability"/> is described.
         /// </summary>
         /// <value>
-        /// The developer.
+        /// The id of the developer.
         /// </value>
-        public Developer Developer { get; set; }
+        public string  DeveloperId { get; set; }
         
         /// <summary>
         /// Gets or sets the availability in days.

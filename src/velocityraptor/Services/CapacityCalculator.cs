@@ -13,7 +13,7 @@ namespace velocityraptor.Services
             float velocityAccumulator = 0;
             foreach (var sprint in completedSprints)
             {
-                var availability = sprint.SprintAvailabilities.Sum(o => o.Availability);
+                var availability = sprint.DeveloperAvailabilities.Sum(o => o.Availability);
                 velocityAccumulator += sprint.AchievedPoints.Value / availability;
             }
 

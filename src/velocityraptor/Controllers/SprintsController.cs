@@ -6,31 +6,29 @@ using velocityraptor.Services;
 
 namespace velocityraptor.Controllers
 {
-    [Route("api/{productId}/sprints")]
+    [Route("api/products/{productId}/sprints")]
     public class SprintsController : ControllerBase
     {
         private readonly IPersistenceService persistenceService;
-        private ICapacityCalculator capacityCalculator;
+        private readonly ICapacityCalculator capacityCalculator;
 
-        public SprintsController(IPersistenceService persistenceService)
+        public SprintsController(IPersistenceService persistenceService, ICapacityCalculator capacityCalculator)
         {
             this.persistenceService = persistenceService;
+            this.capacityCalculator = capacityCalculator;
         }
 
-        [Route("sprintId")]
+        [Route("{sprintId}")]
         public Sprint Index(Guid sprintId, Guid productId)
         {
             var product = this.persistenceService.GetProduct(productId);
             var sprint = product.Sprints.Single(o => o.Id == sprintId);
 
-            var daysAvailabilityInSprint = sprint.SprintAvailabilities.Sum(o => o.Availability);
-            sprint.Capacity = this.capacityCalculator.CalculateSprintCapacity(product, daysAvailabilityInSprint);
-
             return sprint;
         }
 
         [HttpPost]
-        [Route("sprintId/achieved-points")]
+        [Route("{sprintId}/achieved-points")]
         public IActionResult Index(Guid sprintId, Guid productId, [FromBody]int achievedPoints)
         {
             var product = this.persistenceService.GetProduct(productId);
@@ -45,12 +43,16 @@ namespace velocityraptor.Controllers
 
 
 
-        [Route("sprintId")]
+        [HttpPost]
         public IActionResult Create(Guid productId, [FromBody]Sprint sprint)
         {
             sprint.Id = Guid.NewGuid();
             var product = this.persistenceService.GetProduct(productId);
             product.Sprints.Add(sprint);
+
+            var daysAvailabilityInSprint = sprint.DeveloperAvailabilities.Sum(o => o.Availability);
+            sprint.Capacity = this.capacityCalculator.CalculateSprintCapacity(product, daysAvailabilityInSprint);
+
             this.persistenceService.UpdateProject(product);
             return CreatedAtAction("Index", sprint, product.Id);
         }

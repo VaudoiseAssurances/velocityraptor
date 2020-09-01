@@ -16,7 +16,7 @@ namespace velocityraptor.Controllers
                 throw new InvalidOperationException("Project already exists");
             }
 
-            var jsonContent = JsonConvert.SerializeObject(product);
+            var jsonContent = JsonConvert.SerializeObject(product, Formatting.Indented);
             File.WriteAllText(product.Id + ".json", jsonContent);
         }
 
@@ -33,7 +33,9 @@ namespace velocityraptor.Controllers
             {
                 throw new InvalidOperationException("Project doesn't exists");
             }
-            JsonSerializer.Create().Serialize(new StreamWriter(product.Id + ".json", false), product);
+
+            var jsonContent = JsonConvert.SerializeObject(product, Formatting.Indented);
+            File.WriteAllText(product.Id + ".json", jsonContent);
         }
 
         public Product[] GetProducts()
