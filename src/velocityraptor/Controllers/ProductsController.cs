@@ -18,7 +18,7 @@ namespace velocityraptor.Controllers
 
         // GET
         [Route("{productId}")]
-        public IActionResult Index(Guid productId)
+        public IActionResult GetById(Guid productId)
         {
             if (productId == Guid.Empty)
             {
@@ -28,12 +28,18 @@ namespace velocityraptor.Controllers
             return Ok(this.persistenceService.GetProduct(productId));
         }
 
+        // GET
+        public IActionResult GetAll()
+        {
+            return Ok(this.persistenceService.GetProducts());
+        }
+
         [HttpPost]
-        public IActionResult Create(Product product)
+        public IActionResult Create([FromBody] Product product)
         {
             product.Id = Guid.NewGuid();
             this.persistenceService.AddProduct(product);
-            return CreatedAtAction("Index", product.Id);
+            return CreatedAtAction("GetById", product.Id);
         }
 
         [HttpPost]
