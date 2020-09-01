@@ -10,7 +10,9 @@ import { switchMap } from 'rxjs/operators';
 })
 
 export class ProductComponent implements OnInit {
-  product: Product;
+  product: Product = {
+    sprints: []
+  } as Product;
 
   constructor(private route: ActivatedRoute, private service: VelocityraptorApiService) { }
 

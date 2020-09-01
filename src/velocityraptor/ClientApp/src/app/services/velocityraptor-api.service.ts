@@ -20,6 +20,10 @@ export class VelocityraptorApiService {
     return this.client.get<Sprint>('/api/products/' + productId + '/sprints/' + sprintId);
   }
 
+  createSprint(productId: string, sprint: Sprint) {
+    return this.client.post<Sprint>('/api/products/' + productId + '/sprints/', sprint);
+  }
+
   constructor(private client: HttpClient) {
   }
 

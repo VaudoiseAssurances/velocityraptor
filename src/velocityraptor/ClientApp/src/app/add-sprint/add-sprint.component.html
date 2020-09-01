@@ -20,6 +20,12 @@
         <div formArrayName="developerAvailabilities" *ngFor="let item of newSprintForm.get('developerAvailabilities').controls; let i = index;">
             <div [formGroupName]="i">
                 <div>
+                    <label for="developerId">
+                        developer visa
+                    </label>
+                    <input id="developerId" type="string" formControlName="developerId">
+                </div>
+                <div>
                     <label for="availability">
                         availability
                     </label>

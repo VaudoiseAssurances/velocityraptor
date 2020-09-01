@@ -1,3 +1,4 @@
+import { ActivatedRoute, Router } from '@angular/router';
 import { VelocityraptorApiService } from './../services/velocityraptor-api.service';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormArray } from '@angular/forms';
@@ -12,10 +13,11 @@ export class AddSprintComponent implements OnInit {
 
   private newSprintForm: FormGroup;
   developerAvailabilities: FormArray;
+  private productId: string;
 
   private createDeveloperAvailability(): FormGroup {
     return this.formBuilder.group({
-      name: '',
+      developerId: '',
       availability: '',
     });
   }
@@ -23,6 +25,8 @@ export class AddSprintComponent implements OnInit {
   constructor(
     private client: VelocityraptorApiService,
     private formBuilder: FormBuilder,
+    private route: ActivatedRoute,
+    private router: Router,
   ) {
     this.newSprintForm = this.formBuilder.group({
       name: '',
@@ -32,7 +36,7 @@ export class AddSprintComponent implements OnInit {
   }
 
   ngOnInit() {
-
+    this.route.paramMap.subscribe(o => this.productId = o.get('productId'));
   }
 
   addDeveloper() {
@@ -43,8 +47,8 @@ export class AddSprintComponent implements OnInit {
   onSubmit(sprint) {
     // Process checkout data here
 
-    this.newSprintForm.reset();
+    // this.newSprintForm.reset();
 
-    console.warn('Creating sprint: ', sprint);
+    this.client.createSprint(this.productId, sprint).subscribe(o => this.router.navigateByUrl('/products/'))
   }
 }

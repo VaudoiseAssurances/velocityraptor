@@ -1,9 +1,10 @@
 <h1>Product</h1>
-<h2>{{this.product?.name}}</h2>
+<h2>{{this.product.name}}</h2>
 <h3>Sprints:</h3>
 <ul>
-    <li *ngFor="let sprint of this.product.sprints">
-        <a href="#">{{sprint.name}}</a>
+    <li  *ngFor="let sprint of this.product.sprints">
+        <a href="/products/{{this.product.id}}/sprints/{{sprint.id}}">{{sprint.name}}</a>
     </li>
-    <a href="/products/{{this.product.id}}/new-sprint">Add Sprint</a>
+  
 </ul>
+<a href="/products/{{this.product.id}}/new-sprint">Add Sprint</a>

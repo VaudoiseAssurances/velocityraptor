@@ -36,7 +36,7 @@ import { ProductComponent } from './product/product.component';
       { path: 'fetch-data', component: FetchDataComponent },
       { path: 'products/:productId', component: ProductComponent },
       { path: 'products/:productId/new-sprint', component: AddSprintComponent },
-      { path: 'products:productId/sprints/:sprintId', component: SprintComponent },
+      { path: 'products/:productId/sprints/:sprintId', component: SprintComponent },
     ])
   ],
   providers: [VelocityraptorApiService],
