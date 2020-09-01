@@ -1,5 +1,7 @@
+import { VelocityraptorApiService } from './../services/velocityraptor-api.service';
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { Product } from '../services/velocityraptor-api.service';
 
 @Component({
   selector: 'app-home',
@@ -8,19 +10,12 @@ import { Component, OnInit } from '@angular/core';
 export class HomeComponent implements OnInit {
   public products: Product;
 
-  constructor (private client: HttpClient) {
+  constructor (private client: VelocityraptorApiService) {
 
   }
   ngOnInit(): void {
     // TODO: move to dedicated service
-    this.client.get<Product>('/api/products').subscribe(o => this.products = o);
+    this.client.GetAllProducts().subscribe(o => this.products = o);
   }
 }
 
-// todo: move to dedicated file
-interface Product {
-  id: string;
-  name: string;
-  developers: any[];
-  sprints: any[];
-}

@@ -1,7 +1,7 @@
 <h1>My Products</h1>
 <ul>
   <li *ngFor="let product of this.products">
-    <a href='#'>{{product.name}}</a> 
+    <a href='/products/{{product.id}}'>{{product.name}}</a> 
   </li>
 </ul>
 <button>Create new Product</button>

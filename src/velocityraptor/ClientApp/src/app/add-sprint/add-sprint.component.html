@@ -1,0 +1,36 @@
+<h1>New Sprint</h1>
+<form [formGroup]="newSprintForm" (ngSubmit)="onSubmit(newSprintForm.value)">
+
+    <div>
+      <label for="name">
+        Name
+      </label>
+      <input id="name" type="text" formControlName="name">
+    </div>
+  
+    <div>
+      <label for="capacity">
+        Address
+      </label>
+      <input id="capacity" type="number" formControlName="address">
+    </div>
+    
+    <div>
+        <span>Developer availabilities</span>
+        <div formArrayName="developerAvailabilities" *ngFor="let item of newSprintForm.get('developerAvailabilities').controls; let i = index;">
+            <div [formGroupName]="i">
+                <div>
+                    <label for="capacity">
+                    Address
+                    </label>
+                    <input id="capacity" type="number" formControlName="address">
+                </div>
+            </div>
+        </div>
+        <button class="button" type="submit">Add Developer</button>
+
+    </div>
+
+    <button class="button" type="submit">Create</button>
+  
+  </form>
