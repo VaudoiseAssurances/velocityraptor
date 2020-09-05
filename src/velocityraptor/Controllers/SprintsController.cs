@@ -51,7 +51,11 @@ namespace velocityraptor.Controllers
             product.Sprints.Add(sprint);
 
             var daysAvailabilityInSprint = sprint.DeveloperAvailabilities.Sum(o => o.Availability);
-            sprint.Capacity = this.capacityCalculator.CalculateSprintCapacity(product, daysAvailabilityInSprint);
+            var sprintCapacity = this.capacityCalculator.CalculateSprintCapacity(product, daysAvailabilityInSprint);
+            if (!float.IsNaN(sprintCapacity))
+            {
+                sprint.Capacity = sprintCapacity;
+            }
 
             this.persistenceService.UpdateProject(product);
             return CreatedAtAction("Index", sprint, product.Id);

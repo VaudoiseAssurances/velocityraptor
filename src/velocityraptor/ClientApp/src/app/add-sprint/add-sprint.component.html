@@ -9,13 +9,6 @@
     </div>
   
     <div>
-      <label for="duration">
-        Sprint Duration
-      </label>
-      <input id="duration" type="number" formControlName="duration">
-    </div>
-    
-    <div>
         <span>Developer availabilities</span>
         <div formArrayName="developerAvailabilities" *ngFor="let item of newSprintForm.get('developerAvailabilities').controls; let i = index;">
             <div [formGroupName]="i">
